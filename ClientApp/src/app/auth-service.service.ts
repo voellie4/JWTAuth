@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { lastValueFrom } from 'rxjs';
+import { firstValueFrom, lastValueFrom } from 'rxjs';
+import { JsonResponse } from './Models';
 
 @Injectable({
   providedIn: 'root'
@@ -24,55 +25,43 @@ export class AuthServiceService {
     });
   }
 
-  getAdminOnly(): Promise<string> {
-    return new Promise<string>((resolve, reject) => {
-      this.http.get("https://localhost:7054/MyAPI/admin-only").subscribe({
-        next: (res: any) => {
-          resolve(res.displayedMessage);
-        },
-        error: (err: any) => {
-          reject(err);
-        }
-      })
-    });
+  async getAdminOnly(): Promise<JsonResponse> {
+    try {
+      const response = await firstValueFrom(this.http.get<JsonResponse>("https://localhost:7054/MyAPI/admin-only"));
+      return response;
+    }
+    catch (error) {
+      throw error;
+    }
   }
 
-  async getAdminOrManager() {
-    return new Promise<string>((resolve, reject) => {
-      this.http.get("https://localhost:7054/MyAPI/manager-or-admin").subscribe({
-        next: (res: any) => {
-          resolve(res.displayedMessage);
-        },
-        error: (err: any) => {
-          reject(err);
-        }
-      })
-    });
+  async getAdminOrManager(): Promise<JsonResponse> {
+    try {
+      const response = await firstValueFrom(this.http.get<JsonResponse>("https://localhost:7054/MyAPI/manager-or-admin"));
+      return response;
+    }
+    catch (error) {
+      throw error;
+    }
   }
 
-  async getAuthenticatedUser() {
-    return new Promise<string>((resolve, reject) => {
-      this.http.get("https://localhost:7054/MyAPI/authenticated-user").subscribe({
-        next: (res: any) => {
-          resolve(res.displayedMessage);
-        },
-        error: (err: any) => {
-          reject(err);
-        }
-      })
-    });
+  async getAuthenticatedUser(): Promise<JsonResponse> {
+    try {
+      const response = await firstValueFrom(this.http.get<JsonResponse>("https://localhost:7054/MyAPI/authenticated-user"));
+      return response;
+    }
+    catch (error) {
+      throw error;
+    }
   }
 
-  getMinimumAgeUser() {
-    return new Promise<string>((resolve, reject) => {
-      this.http.get("https://localhost:7054/MyAPI/minimum-age-user").subscribe({
-        next: (res: any) => {
-          resolve(res.displayedMessage);
-        },
-        error: (err: any) => {
-          reject(err);
-        }
-      })
-    });
+  async getMinimumAgeUser(): Promise<JsonResponse> {
+    try {
+      const response = await firstValueFrom(this.http.get<JsonResponse>("https://localhost:7054/MyAPI/minimum-age-user"));
+      return response;
+    }
+    catch (error) {
+      throw error;
+    }
   }
 }
